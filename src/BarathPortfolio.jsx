@@ -241,11 +241,11 @@ export default function BarathPortfolio() {
 
       <footer className="max-w-5xl mx-auto px-6 pb-10 text-sm text-center text-muted">
         {/* <div className="mb-3">Built with ♥ — replace avatar and content as needed. Theme variables are at the top of the file.</div> */}
-        <div className="flex items-center justify-center gap-4">
+        {/* <div className="flex items-center justify-center gap-4">
           <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
           <span className="opacity-50">·</span>
           <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
-        </div>
+        </div> */}
       </footer>
     </div>
   );
