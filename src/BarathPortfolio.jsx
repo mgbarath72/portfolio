@@ -121,8 +121,8 @@ export default function BarathPortfolio() {
             
           </div>
           <div className="flex-1">
-            {/* <h1 className="text-3xl font-extrabold tracking-tight">{profile.name} <span className="ml-2 gold text-lg font-semibold">·</span></h1> */}
-            <h1 className="text-3xl font-extrabold tracking-tight">{profile.name}</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight">{profile.name} <span className="ml-2 gold text-lg font-semibold">·</span></h1> 
+            {/* <h1 className="text-3xl font-extrabold tracking-tight">{profile.name}</h1> */}
             <p className="mt-1 text-sm opacity-90">{profile.title} • {profile.location}</p>
             <div className="mt-3 flex flex-wrap gap-3 text-sm">
               <a href={`mailto:${profile.email}`} className="px-3 py-1 rounded-full text-xs bg-white/10 border border-white/20">{profile.email}</a>
