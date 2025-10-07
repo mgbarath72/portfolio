@@ -121,8 +121,8 @@ export default function BarathPortfolio() {
             
           </div>
           <div className="flex-1">
-            <h1 className="text-3xl font-extrabold tracking-tight">{profile.name} <span className="ml-2 gold text-lg font-semibold">·</span></h1> 
-            {/* <h1 className="text-3xl font-extrabold tracking-tight">{profile.name}</h1> */}
+            {/* <h1 className="text-3xl font-extrabold tracking-tight">{profile.name} <span className="ml-2 gold text-lg font-semibold">·</span></h1>  */}
+           <h1 className="text-3xl font-extrabold tracking-tight">{profile.name}</h1>
             <p className="mt-1 text-sm opacity-90">{profile.title} • {profile.location}</p>
             <div className="mt-3 flex flex-wrap gap-3 text-sm">
               <a href={`mailto:${profile.email}`} className="px-3 py-1 rounded-full text-xs bg-white/10 border border-white/20">{profile.email}</a>
@@ -220,7 +220,7 @@ export default function BarathPortfolio() {
 
           <div className="card rounded-xl p-6 shadow-md">
             <h3 className="text-lg font-semibold mb-3">Testimonials</h3>
-            <p className="text-sm text-muted mb-3">Embedded video placeholders — replace with YouTube/Vimeo links.</p>
+            {/* <p className="text-sm text-muted mb-3">Embedded video placeholders — replace with YouTube/Vimeo links.</p> */}
 
             {/* Video placeholders: change src to your YouTube/Vimeo embed URLs */}
             <div className="space-y-3">
@@ -240,7 +240,7 @@ export default function BarathPortfolio() {
       </main>
 
       <footer className="max-w-5xl mx-auto px-6 pb-10 text-sm text-center text-muted">
-        <div className="mb-3">Built with ♥ — replace avatar and content as needed. Theme variables are at the top of the file.</div>
+        {/* <div className="mb-3">Built with ♥ — replace avatar and content as needed. Theme variables are at the top of the file.</div> */}
         <div className="flex items-center justify-center gap-4">
           <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
           <span className="opacity-50">·</span>
