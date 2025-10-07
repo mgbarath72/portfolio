@@ -1,10 +1,11 @@
 name: Build and Deploy React App to GitHub Pages
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main  
-  workflow_dispatch:
+
 
 permissions:
   contents: write  # required for deployment to gh-pages branch
