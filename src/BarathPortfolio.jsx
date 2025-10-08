@@ -24,7 +24,7 @@ const ThemeStyle = () => (
 );
 
 // const avatar = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%230f1724'/><g fill='%23fff'><circle cx='200' cy='140' r='70' opacity='0.95'/><rect x='90' y='230' width='220' height='110' rx='20' opacity='0.95'/></g></svg>`;
-import avatar from "./images/profilephoto.jpg";
+import avatar from "./images/profilephoto1.jpg";
 import testimonial1 from "./images/video1.mp4";
 import testimonial2 from "./images/video2.mp4";
 
