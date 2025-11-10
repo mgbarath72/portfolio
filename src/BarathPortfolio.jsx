@@ -1,16 +1,4 @@
-import React, { useMemo } from "react";
-import { MotionConfig, motion } from "framer-motion";
-import {
-  Mail,
-  MapPin,
-  Phone,
-  ArrowRight,
-  PlayCircle,
-  BadgeCheck,
-  FlaskConical,
-  Cpu,
-  Box,
-} from "lucide-react";
+import React from "react";
 
 import avatar from "./images/profilephoto1.jpg";
 import testimonial1 from "./images/video1.mp4";
@@ -209,14 +197,14 @@ const testimonialsData = [
   },
 ];
 
-function Chip({ icon: Icon, children, href }) {
+function Chip({ children, href }) {
   const Component = href ? "a" : "div";
   return (
     <Component
       href={href}
       className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 text-sm text-zinc-300 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white"
     >
-      <Icon size={16} className="opacity-80" />
+      <span className="h-2 w-2 rounded-full bg-amber-300" aria-hidden />
       {children}
     </Component>
   );
@@ -239,7 +227,7 @@ function HeroCard({ title, children }) {
   );
 }
 
-function CTA({ icon: Icon, children, variant = "primary", href }) {
+function CTA({ children, variant = "primary", href }) {
   const base =
     "inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-0";
   const cls =
@@ -249,27 +237,20 @@ function CTA({ icon: Icon, children, variant = "primary", href }) {
   const Component = href ? "a" : "button";
   return (
     <Component href={href} className={cls} target={href ? "_blank" : undefined} rel={href ? "noreferrer" : undefined}>
-      <Icon size={18} />
       {children}
     </Component>
   );
 }
 
-export default function BarathPortfolio() {
-  const heroBullets = useMemo(
-    () => [
-      "XR training stack validated with surgical residents",
-      "Realtime ingest → volumetric overlays service",
-      "Collaborative VR rituals for robotics design reviews",
-    ],
-    []
-  );
+const heroBullets = [
+  "XR training stack validated with surgical residents",
+  "Realtime ingest → volumetric overlays service",
+  "Collaborative VR rituals for robotics design reviews",
+];
 
-  const focusSignals = [
-    { icon: Cpu, label: "Apple Vision Pro" },
-    { icon: Box, label: "Robotics" },
-    { icon: FlaskConical, label: "Human Factors" },
-  ];
+const focusSignals = ["Apple Vision Pro", "Robotics", "Human Factors"];
+
+export default function BarathPortfolio() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-amber-200 selection:text-slate-900">
@@ -280,8 +261,7 @@ export default function BarathPortfolio() {
         <div className="noise-layer" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-12 space-y-16">
-          <MotionConfig reducedMotion="user">
-            <section className="relative w-full overflow-hidden rounded-[32px] border border-white/10 bg-white/5 px-6 py-10 shadow-2xl sm:px-10">
+          <section className="relative w-full overflow-hidden rounded-[32px] border border-white/10 bg-white/5 px-6 py-10 shadow-2xl sm:px-10">
               <div className="pointer-events-none absolute inset-0">
                 <div className="absolute -top-40 left-1/2 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-amber-400/20 blur-3xl" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
@@ -305,25 +285,18 @@ export default function BarathPortfolio() {
                       </div>
 
                       <div className="flex-1">
-                        <motion.h1
-                          initial={{ opacity: 0, y: 12 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5 }}
-                          className="text-4xl font-semibold tracking-tight sm:text-5xl"
-                        >
+                        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
                           {profile.name}
-                        </motion.h1>
+                        </h1>
                         <p className="mt-4 max-w-3xl text-lg leading-relaxed text-zinc-300">
                           I build immersive systems that make robotics intent tangible. From Apple Vision Pro prototypes to realtime sensor
                           pipelines, every experience translates complex autonomy into human-readable guidance.
                         </p>
 
                         <div className="mt-5 flex flex-wrap gap-3">
-                          <Chip icon={Mail} href={`mailto:${profile.email}`}>
-                            {profile.email}
-                          </Chip>
-                          <Chip icon={MapPin}>{profile.location}</Chip>
-                          <Chip icon={Phone}>{profile.phone}</Chip>
+                          <Chip href={`mailto:${profile.email}`}>{profile.email}</Chip>
+                          <Chip>{profile.location}</Chip>
+                          <Chip>{profile.phone}</Chip>
                         </div>
 
                         <div className="mt-6 flex flex-wrap gap-2">
@@ -333,10 +306,8 @@ export default function BarathPortfolio() {
                         </div>
 
                         <div className="mt-8 flex flex-wrap gap-3">
-                          <CTA icon={ArrowRight} href={profile.linkedin}>
-                            Start a project
-                          </CTA>
-                          <CTA icon={PlayCircle} variant="ghost" href={profile.github}>
+                          <CTA href={profile.linkedin}>Start a project</CTA>
+                          <CTA variant="ghost" href={profile.github}>
                             View experiments
                           </CTA>
                         </div>
@@ -345,7 +316,7 @@ export default function BarathPortfolio() {
                   </div>
 
                   <div className="space-y-6 lg:col-span-5 xl:col-span-4">
-                    <HeroCard title={<span className="flex items-center gap-2 text-zinc-300"><BadgeCheck size={16} /> Signal</span>}>
+                    <HeroCard title={<span className="flex items-center gap-2 text-zinc-300">Signal</span>}>
                       <ul className="space-y-3 text-sm leading-relaxed text-zinc-300">
                         {heroBullets.map((bullet) => (
                           <li key={bullet} className="flex items-start gap-3">
@@ -356,14 +327,14 @@ export default function BarathPortfolio() {
                       </ul>
                     </HeroCard>
 
-                    <HeroCard title={<span className="flex items-center gap-2 text-zinc-300"><FlaskConical size={16} /> Focus</span>}>
+                    <HeroCard title={<span className="flex items-center gap-2 text-zinc-300">Focus</span>}>
                       <div className="flex flex-wrap gap-2">
-                        {focusSignals.map(({ icon: Icon, label }) => (
+                        {focusSignals.map((label) => (
                           <span
                             key={label}
                             className="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-2 text-sm text-zinc-200 ring-1 ring-white/10"
                           >
-                            <Icon size={16} className="opacity-80" />
+                            <span className="h-1.5 w-1.5 rounded-full bg-amber-200" aria-hidden />
                             {label}
                           </span>
                         ))}
@@ -373,7 +344,6 @@ export default function BarathPortfolio() {
                 </div>
               </div>
             </section>
-          </MotionConfig>
 
           <section className="space-y-8">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -515,10 +485,8 @@ export default function BarathPortfolio() {
               I’m exploring research collaborations, internships, and consulting work that mix robotics, XR, and human-centered design. Tell me about your challenge.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <CTA icon={ArrowRight} href={`mailto:${profile.email}`}>
-                Start a conversation
-              </CTA>
-              <CTA icon={PlayCircle} variant="ghost" href={profile.linkedin}>
+              <CTA href={`mailto:${profile.email}`}>Start a conversation</CTA>
+              <CTA variant="ghost" href={profile.linkedin}>
                 Schedule a call
               </CTA>
             </div>
