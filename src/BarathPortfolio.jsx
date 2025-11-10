@@ -1,252 +1,530 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { MotionConfig, motion } from "framer-motion";
+import {
+  Mail,
+  MapPin,
+  Phone,
+  ArrowRight,
+  PlayCircle,
+  BadgeCheck,
+  FlaskConical,
+  Cpu,
+  Box,
+} from "lucide-react";
 
-// Single-file React component (TailwindCSS) for Barath Balamurugan
-// Instructions:
-// 1) This component uses Tailwind utility classes for layout. Add this file to a React + Tailwind project (e.g. create-react-app + Tailwind).
-// 2) To change the color theme, edit the CSS variables in the <ThemeStyle /> component below (--navy, --gold, --muted).
-// 3) Replace the dummy avatar (data URL) in `avatar` with your passport photo URL or local import.
-// 4) Resume content is embedded in the `profile` object — edit any text there.
-
-const ThemeStyle = () => (
-  <style>{`
-    :root {
-      --navy: #0b2340; /* primary background */
-      --gold: #c59d2d; /* accent */
-      --muted: #64748b; /* muted text */
-      --card: #f8fafc; /* card bg */
-    }
-    .theme-navy { background: linear-gradient(180deg, var(--navy) 0%, rgba(11,35,64,0.9) 100%); }
-    .accent-border { border-color: var(--gold); }
-    .gold { color: var(--gold); }
-    .navy-bg { background-color: var(--navy); }
-    .card { background: var(--card); }
-  `}</style>
-);
-
-// const avatar = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='100%' height='100%' fill='%230f1724'/><g fill='%23fff'><circle cx='200' cy='140' r='70' opacity='0.95'/><rect x='90' y='230' width='220' height='110' rx='20' opacity='0.95'/></g></svg>`;
 import avatar from "./images/profilephoto1.jpg";
 import testimonial1 from "./images/video1.mp4";
 import testimonial2 from "./images/video2.mp4";
 
+const ThemeStyle = () => (
+  <style>{`
+    :root {
+      --bg: #01030c;
+      --panel: rgba(11, 17, 36, 0.88);
+      --muted: #94a3b8;
+      --accent: #fcd34d;
+      --accent-strong: #f59e0b;
+    }
+
+    .noise-layer {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-opacity='0.07'%3E%3Cpath d='M0 0h2v2H0z' fill='%23fff'/%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .glass-card {
+      background: var(--panel);
+      border: 1px solid rgba(226, 232, 240, 0.08);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 25px 60px rgba(2, 6, 23, 0.65);
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(226, 232, 240, 0.72);
+    }
+
+    .tag-pill {
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      background: rgba(248, 250, 252, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.8rem;
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .gradient-lens {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(60px);
+      opacity: 0.6;
+    }
+
+    .gradient-lens--one {
+      width: 420px;
+      height: 420px;
+      top: -120px;
+      right: -80px;
+      background: radial-gradient(circle, rgba(251, 207, 92, 0.55) 0%, rgba(15, 23, 42, 0) 70%);
+    }
+
+    .gradient-lens--two {
+      width: 360px;
+      height: 360px;
+      bottom: -40px;
+      left: -80px;
+      background: radial-gradient(circle, rgba(14, 165, 233, 0.35) 0%, rgba(2, 6, 23, 0) 70%);
+    }
+  `}</style>
+);
+
 const profile = {
   name: "Barath Balamurugan",
-  title: "M.S. Robotics (Computer Science) — Researcher",
+  title: "Spatial computing researcher",
   location: "Boston, MA",
   email: "barath.balamurugan@outlook.com",
   phone: "+1 857-398-8279",
   linkedin: "https://www.linkedin.com/in/barath-balamurugan",
   github: "https://github.com/Barath-Balamurugan",
   highlights: [
-    "Research in Collaborative VR & Apple Vision Pro",
-    "XR training systems, AR surgical guidance prototypes",
-    "Strong background in robotics, computer vision, and real-time systems",
-  ],
-  education: [
-    {
-      school: "Northeastern University, Boston",
-      degree: "M.S. Robotics (Computer Science)",
-      date: "Sep 2024 – Dec 2026",
-      notes: "GPA: 4.00/4.00.",
-      subject: "Robot Mechanics & Control, Supervised Machine Learning, Pattern Recognition & Computer Vision, Reinforcement Learning",
-    },
-    {
-      school: "Sri Krishna College of Engineering and Technology, India",
-      degree: "B.E. Mechatronics",
-      date: "Jun 2019 – Mar 2023",
-      notes: "CGPA: 9.07/10",
-      subject: " Mobile Robotics, Autonomous Vehicle Guidance System, Virtual Reality, Embedded System for Mechatronics, Internet of Things for Mechatronics, Principles of AI and Expert Systems",
-    },
-  ],
-
-  experience: [
-    {
-      title: "Research Apprentice — Reality Design Lab, Northeastern University",
-      date: "Jun 2025 – Present",
-      bullets: [
-        "Research on collaborative VR systems and multimodal user studies.",
-        "Worked with Apple Vision Pro for immersive communication research.",
-        "Designed study protocols and logged multimodal data for analysis."
-      ],
-    },
-    {
-      title: "Research Assistant - Northeastern University",
-      date: "Sep 2024 – Present",
-      bullets: [
-        "Built and demonstrated an end-to-end XR communication pipeline integrating hardware sensors and real-time visualization.",
-        "Implemented a multi-sensory VR training and validated it through pilot user sessions.",
-        "Developed a physical probe that streams sensor data to a VR application for live intraoperative updates.",
-        "Prototyped and validated real-time data ingestion in VR with stable update rates under lab conditions.",
-        "Designed XR/VR training workflows augmented with haptics and sensory feedback to improve skill transfer and reduce training time."
-      ],
-    },
-    {
-      title: "Project Engineer — Soliton Technologies",
-      date: "Jun 2023 – Jul 2024",
-      bullets: [
-        "Optimized LabVIEW & Python APIs; reduced validation time by 35%.",
-        "Built utilities improving testing accuracy and reducing manual errors."
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "AR-Surgery — Digital Twin for Surgical Guidance",
-      tech: "Apple Vision Pro, SwiftUI, RealityKit",
-      date: "Apr 2025 – Present",
-    },
-    {
-      name: "Task Colab — Collaborative VR Research",
-      tech: "Apple Vision Pro, Raspberry Pi",
-      date: "Sept 2025 – Present",
-    },
-  ],
-  publications: [
-    { title: "Remote Human-Robot Collaboration in XR (HotMobile '25)", link: "https://doi.org/10.1145/3708468.3715687" },
-    { title: "Actuation of Braille Text into Braille Code (IEEE Xplore 2023)", link: "https://ieeexplore.ieee.org/document/10568883" },
-  ],
-  skills: [
-    "Python", "Swift", "C++", "Unity", "ROS2", "PyTorch", "OpenCV", "LabVIEW",
+    "Collaborative VR + Apple Vision Pro",
+    "XR guidance for clinicians",
+    "Realtime robotics + sensing",
   ],
 };
 
-export default function BarathPortfolio() {
+const focusAreas = [
+  {
+    title: "Spatial computing interfaces",
+    description:
+      "Rapid visionOS prototyping that lets teams reason about robot intent, shared context, and tactile feedback.",
+    points: ["Apple Vision Pro", "RealityKit", "SwiftUI"],
+  },
+  {
+    title: "Surgical guidance twins",
+    description:
+      "Digital twins syncing probes, haptics, and overlays so operating teams rehearse workflows with confidence.",
+    points: ["Sensor fusion", "XR training", "Ops rehearsal"],
+  },
+  {
+    title: "Human-robot collaboration",
+    description:
+      "Immersive review rooms that reveal telemetry, uncertainty, and task plans in volumetric canvases.",
+    points: ["Collaborative VR", "Realtime data", "User studies"],
+  },
+];
+
+const stats = [
+  { value: "4.0", label: "Graduate GPA" },
+  { value: "35%", label: "Validation time saved" },
+  { value: "5+", label: "XR stacks shipped" },
+  { value: "2", label: "Peer-reviewed papers" },
+];
+
+const projects = [
+  {
+    name: "AR-Surgery digital twin",
+    summary:
+      "Live overlays, annotations, and haptic nudges for intraoperative teams using Apple Vision Pro as a co-pilot.",
+    signals: ["Latency &lt; 40 ms", "RealityKit", "SwiftUI"],
+    date: "2025",
+  },
+  {
+    name: "Task Colab volumetric board",
+    summary:
+      "Remote scientists co-create task plans inside a shared volumetric workspace with spatialized audio callouts.",
+    signals: ["Apple Vision Pro", "Unity", "Sensor fusion"],
+    date: "2025",
+  },
+  {
+    name: "Haptic XR training lane",
+    summary:
+      "Multi-sensory VR training program with tactile probes and analytics to shorten clinician onboarding.",
+    signals: ["ROS2", "OpenCV", "Haptics"],
+    date: "2024",
+  },
+];
+
+const labPlaybooks = [
+  {
+    title: "Immersive training loops",
+    body:
+      "Instrumented VR drills that combine tactile probes with volumetric telemetry so residents feel procedures before day zero.",
+    tags: ["Haptics", "Pilot studies", "Adaptive scoring"],
+  },
+  {
+    title: "Realtime insight pipelines",
+    body:
+      "Data services that ingest sensor streams, clean them on-edge, and surface only the critical signals in XR canvases.",
+    tags: ["Latency &lt; 40 ms", "Edge compute", "Reliability"],
+  },
+  {
+    title: "Collaborative review rooms",
+    body:
+      "Spatial meeting rooms where robotics teams inspect intent, uncertainty, and what-if scenarios side by side.",
+    tags: ["Shared context", "Storyboards", "Vision Pro"],
+  },
+];
+
+const credentials = [
+  {
+    title: "Northeastern University",
+    subtitle: "M.S. Robotics (Computer Science)",
+    detail: "Reality Design Lab • GPA 4.0/4.0",
+  },
+  {
+    title: "Sri Krishna College of Engineering & Technology",
+    subtitle: "B.E. Mechatronics",
+    detail: "Graduated with First Class Distinction",
+  },
+];
+
+const toolkit = [
+  "Python",
+  "Swift",
+  "C++",
+  "Unity",
+  "ROS2",
+  "RealityKit",
+  "PyTorch",
+  "OpenCV",
+  "LabVIEW",
+  "Embedded C",
+];
+
+const testimonialsData = [
+  {
+    title: "Lab walkthrough — XR communication pipeline",
+    detail: "Demonstrates a haptic-integrated VR workflow validated with pilot trainees.",
+    media: testimonial1,
+  },
+  {
+    title: "Surgical guidance twin",
+    detail: "Clinician feedback on an Apple Vision Pro prototype for intraoperative awareness.",
+    media: testimonial2,
+  },
+];
+
+function Chip({ icon: Icon, children, href }) {
+  const Component = href ? "a" : "div";
   return (
-    <div className="min-h-screen text-slate-800 antialiased">
+    <Component
+      href={href}
+      className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 text-sm text-zinc-300 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white"
+    >
+      <Icon size={16} className="opacity-80" />
+      {children}
+    </Component>
+  );
+}
+
+function Tag({ children }) {
+  return (
+    <span className="inline-flex items-center rounded-full bg-amber-400/10 px-3 py-1 text-xs font-medium text-amber-300 ring-1 ring-amber-400/20">
+      {children}
+    </span>
+  );
+}
+
+function HeroCard({ title, children }) {
+  return (
+    <div className="relative overflow-hidden rounded-3xl bg-zinc-900/60 p-6 shadow-2xl ring-1 ring-white/10 backdrop-blur-md">
+      {title && <div className="mb-4 text-sm uppercase tracking-[0.4em] text-zinc-400">{title}</div>}
+      {children}
+    </div>
+  );
+}
+
+function CTA({ icon: Icon, children, variant = "primary", href }) {
+  const base =
+    "inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-0";
+  const cls =
+    variant === "primary"
+      ? `${base} bg-amber-400 text-zinc-900 hover:bg-amber-300`
+      : `${base} bg-white/5 text-zinc-200 hover:bg-white/10`;
+  const Component = href ? "a" : "button";
+  return (
+    <Component href={href} className={cls} target={href ? "_blank" : undefined} rel={href ? "noreferrer" : undefined}>
+      <Icon size={18} />
+      {children}
+    </Component>
+  );
+}
+
+export default function BarathPortfolio() {
+  const heroBullets = useMemo(
+    () => [
+      "XR training stack validated with surgical residents",
+      "Realtime ingest → volumetric overlays service",
+      "Collaborative VR rituals for robotics design reviews",
+    ],
+    []
+  );
+
+  const focusSignals = [
+    { icon: Cpu, label: "Apple Vision Pro" },
+    { icon: Box, label: "Robotics" },
+    { icon: FlaskConical, label: "Human Factors" },
+  ];
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-amber-200 selection:text-slate-900">
       <ThemeStyle />
+      <div className="relative isolate overflow-hidden pb-20">
+        <div className="gradient-lens gradient-lens--one" />
+        <div className="gradient-lens gradient-lens--two" />
+        <div className="noise-layer" />
 
-      <header className="theme-navy text-white py-12">
-        <div className="max-w-5xl mx-auto px-6 flex items-center gap-6">
-          <div className="w-28 h-28 rounded-lg overflow-hidden ring-4 ring-opacity-30" style={{ boxShadow: '0 6px 18px rgba(2,6,23,0.45)', borderColor: 'var(--gold)', borderWidth: 2 }}>
-            <img src={avatar} alt="avatar" className="w-full h-full object-cover" />
-            
-          </div>
-          <div className="flex-1">
-            {/* <h1 className="text-3xl font-extrabold tracking-tight">{profile.name} <span className="ml-2 gold text-lg font-semibold">·</span></h1>  */}
-           <h1 className="text-3xl font-extrabold tracking-tight">{profile.name}</h1>
-            <p className="mt-1 text-sm opacity-90">{profile.title} • {profile.location}</p>
-            <div className="mt-3 flex flex-wrap gap-3 text-sm">
-              <a href={`mailto:${profile.email}`} className="px-3 py-1 rounded-full text-xs bg-white/10 border border-white/20">{profile.email}</a>
-              <a href={`tel:${profile.phone}`} className="px-3 py-1 rounded-full text-xs bg-white/5 border border-white/10">{profile.phone}</a>
-              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="px-3 py-1 rounded-full text-xs bg-white/5">LinkedIn</a>
-              <a href={profile.github} target="_blank" rel="noreferrer" className="px-3 py-1 rounded-full text-xs bg-white/5">GitHub</a>
-            </div>
-          </div>
-          <div className="w-64 text-left">
-            <div
-              className="inline-block px-5 py-3 rounded-md border-2 accent-border text-left"
-              style={{ borderColor: 'var(--gold)', minWidth: '14rem' }}
-            >
-              <span className="text-xs block opacity-90 mb-1 font-semibold tracking-wide">
-                Highlights
-              </span>
-              <ul className="mt-1 text-[13px] leading-5 list-disc list-inside opacity-90">
-                {profile.highlights.map((h, i) => (
-                  <li key={i} className="mb-1">{h}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </header>
+        <div className="relative z-10 max-w-6xl mx-auto px-6 py-12 space-y-16">
+          <MotionConfig reducedMotion="user">
+            <section className="relative w-full overflow-hidden rounded-[32px] border border-white/10 bg-white/5 px-6 py-10 shadow-2xl sm:px-10">
+              <div className="pointer-events-none absolute inset-0">
+                <div className="absolute -top-40 left-1/2 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-amber-400/20 blur-3xl" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
+              </div>
 
-      <main className="-mt-12 max-w-5xl mx-auto px-6 pb-16 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <section className="lg:col-span-2">
-          <div className="card rounded-xl p-6 shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Experience</h2>
-            {profile.experience.map((exp, idx) => (
-              <div key={idx} className="mb-4">
-                <div className="flex justify-between items-baseline">
-                  <h3 className="font-medium">{exp.title}</h3>
-                  <span className="text-sm text-muted">{exp.date}</span>
+              <div className="relative">
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs font-medium tracking-[0.5em] text-zinc-300 ring-1 ring-white/10">
+                  RESEARCHER • XR · ROBOTICS
                 </div>
-                <ul className="mt-2 list-disc list-inside text-sm opacity-90">
-                  {exp.bullets.map((b, j) => <li key={j}>{b}</li>)}
-                </ul>
+
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+                  <div className="lg:col-span-7 xl:col-span-8">
+                    <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+                      <div className="relative mx-auto sm:mx-0">
+                        <div className="absolute -inset-1 rounded-2xl bg-amber-400/20 blur-md" />
+                        <img
+                          src={avatar}
+                          alt="Barath Balamurugan"
+                          className="relative h-28 w-28 rounded-2xl object-cover ring-1 ring-white/10"
+                        />
+                      </div>
+
+                      <div className="flex-1">
+                        <motion.h1
+                          initial={{ opacity: 0, y: 12 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5 }}
+                          className="text-4xl font-semibold tracking-tight sm:text-5xl"
+                        >
+                          {profile.name}
+                        </motion.h1>
+                        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-zinc-300">
+                          I build immersive systems that make robotics intent tangible. From Apple Vision Pro prototypes to realtime sensor
+                          pipelines, every experience translates complex autonomy into human-readable guidance.
+                        </p>
+
+                        <div className="mt-5 flex flex-wrap gap-3">
+                          <Chip icon={Mail} href={`mailto:${profile.email}`}>
+                            {profile.email}
+                          </Chip>
+                          <Chip icon={MapPin}>{profile.location}</Chip>
+                          <Chip icon={Phone}>{profile.phone}</Chip>
+                        </div>
+
+                        <div className="mt-6 flex flex-wrap gap-2">
+                          {profile.highlights.map((item) => (
+                            <Tag key={item}>{item}</Tag>
+                          ))}
+                        </div>
+
+                        <div className="mt-8 flex flex-wrap gap-3">
+                          <CTA icon={ArrowRight} href={profile.linkedin}>
+                            Start a project
+                          </CTA>
+                          <CTA icon={PlayCircle} variant="ghost" href={profile.github}>
+                            View experiments
+                          </CTA>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6 lg:col-span-5 xl:col-span-4">
+                    <HeroCard title={<span className="flex items-center gap-2 text-zinc-300"><BadgeCheck size={16} /> Signal</span>}>
+                      <ul className="space-y-3 text-sm leading-relaxed text-zinc-300">
+                        {heroBullets.map((bullet) => (
+                          <li key={bullet} className="flex items-start gap-3">
+                            <span className="mt-1 inline-flex h-2.5 w-2.5 flex-none rounded-full bg-amber-400/90" />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </HeroCard>
+
+                    <HeroCard title={<span className="flex items-center gap-2 text-zinc-300"><FlaskConical size={16} /> Focus</span>}>
+                      <div className="flex flex-wrap gap-2">
+                        {focusSignals.map(({ icon: Icon, label }) => (
+                          <span
+                            key={label}
+                            className="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-2 text-sm text-zinc-200 ring-1 ring-white/10"
+                          >
+                            <Icon size={16} className="opacity-80" />
+                            {label}
+                          </span>
+                        ))}
+                      </div>
+                    </HeroCard>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </MotionConfig>
+
+          <section className="space-y-8">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <div className="section-label mb-3">Telemetry</div>
+                <h2 className="text-3xl font-semibold">Proof points from the lab</h2>
+              </div>
+            </div>
+            <div className="grid gap-6 md:grid-cols-4">
+              {stats.map((stat) => (
+                <div key={stat.label} className="glass-card rounded-2xl p-5 text-center">
+                  <div className="text-3xl font-semibold text-amber-300">{stat.value}</div>
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mt-2">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-6">
+            <div>
+              <div className="section-label mb-3">Focus areas</div>
+              <h2 className="text-3xl font-semibold">Where I invest cycles</h2>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {focusAreas.map((area, idx) => (
+                <div key={area.title} className="glass-card rounded-2xl p-6 space-y-4">
+                  <p className="text-sm text-slate-400">Track 0{idx + 1}</p>
+                  <h3 className="text-xl font-semibold text-white">{area.title}</h3>
+                  <p className="text-sm text-slate-300">{area.description}</p>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {area.points.map((point) => (
+                      <span key={point} className="tag-pill text-xs">
+                        {point}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-6">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <div className="section-label mb-3">Case studies</div>
+                <h2 className="text-3xl font-semibold">Systems that turn insight into action</h2>
+              </div>
+              <p className="text-sm text-slate-400 max-w-xl">
+                Each build is engineered as a living lab: measurable telemetry, field feedback loops, and a clear path to deployment beyond demos.
+              </p>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {projects.map((project) => (
+                <article key={project.name} className="glass-card rounded-2xl p-6 space-y-4">
+                  <div className="text-sm text-slate-400">{project.date}</div>
+                  <h3 className="text-xl font-semibold text-white">{project.name}</h3>
+                  <p className="text-sm text-slate-300">{project.summary}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.signals.map((signal) => (
+                      <span key={signal} className="tag-pill text-xs">
+                        {signal}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-6">
+            <div className="section-label mb-3">Playbooks</div>
+            <h2 className="text-3xl font-semibold">How I partner with teams</h2>
+            <div className="grid gap-6 md:grid-cols-3">
+              {labPlaybooks.map((playbook) => (
+                <div key={playbook.title} className="glass-card rounded-2xl p-6 space-y-3">
+                  <h3 className="text-xl font-semibold text-white">{playbook.title}</h3>
+                  <p className="text-sm text-slate-300">{playbook.body}</p>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {playbook.tags.map((tag) => (
+                      <span key={tag} className="tag-pill text-xs">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="grid gap-6 lg:grid-cols-2">
+            <div className="glass-card rounded-3xl p-8 space-y-5">
+              <div className="section-label">Credentials & labs</div>
+              {credentials.map((cred) => (
+                <div key={cred.title} className="border border-white/10 rounded-2xl p-5 bg-white/5">
+                  <h3 className="text-lg font-semibold text-white">{cred.title}</h3>
+                  <p className="text-sm text-slate-300 mt-1">{cred.subtitle}</p>
+                  <p className="text-xs text-slate-400 mt-1">{cred.detail}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="glass-card rounded-3xl p-8 space-y-5">
+              <div className="section-label">Toolkit</div>
+              <p className="text-sm text-slate-300">
+                Languages and engines I reach for to turn research hypotheses into production-ready prototypes.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {toolkit.map((skill) => (
+                  <span key={skill} className="tag-pill">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="grid gap-6 lg:grid-cols-2">
+            {testimonialsData.map((testimonial) => (
+              <div key={testimonial.title} className="glass-card rounded-3xl overflow-hidden">
+                <video controls className="w-full h-56 object-cover">
+                  <source src={testimonial.media} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div className="p-6 space-y-2">
+                  <p className="text-sm text-amber-200">Field note</p>
+                  <h3 className="text-xl font-semibold text-white">{testimonial.title}</h3>
+                  <p className="text-sm text-slate-300">{testimonial.detail}</p>
+                </div>
               </div>
             ))}
-          </div>
+          </section>
 
-          <div className="card rounded-xl p-6 shadow-md mt-6">
-            <h2 className="text-xl font-semibold mb-4">Projects</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {profile.projects.map((p, i) => (
-                <div key={i} className="p-4 border rounded-lg">
-                  <h4 className="font-semibold">{p.name}</h4>
-                  <p className="text-sm mt-1 opacity-90">{p.tech}</p>
-                  <p className="text-xs mt-2 text-muted">{p.date}</p>
-                </div>
-              ))}
+          <section className="glass-card rounded-3xl p-10 text-center space-y-6">
+            <div className="section-label">Collaborate</div>
+            <h2 className="text-3xl font-semibold">
+              Let’s build spatial experiences that make robotics more human and trustworthy.
+            </h2>
+            <p className="text-base text-slate-300 max-w-3xl mx-auto">
+              I’m exploring research collaborations, internships, and consulting work that mix robotics, XR, and human-centered design. Tell me about your challenge.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <CTA icon={ArrowRight} href={`mailto:${profile.email}`}>
+                Start a conversation
+              </CTA>
+              <CTA icon={PlayCircle} variant="ghost" href={profile.linkedin}>
+                Schedule a call
+              </CTA>
             </div>
-          </div>
-
-          <div className="card rounded-xl p-6 shadow-md mt-6">
-            <h2 className="text-xl font-semibold mb-4">Publications</h2>
-            <ul className="space-y-2">
-              {profile.publications.map((pub, i) => (
-                <li key={i}>
-                  <a href={pub.link} target="_blank" rel="noreferrer" className="font-medium underline">{pub.title}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <aside className="space-y-6">
-          <div className="card rounded-xl p-6 shadow-md">
-            <h3 className="text-lg font-semibold mb-3">Education</h3>
-            <div className="space-y-3 text-sm">
-              {profile.education.map((ed, i) => (
-                <div key={i}>
-                  <div className="flex justify-between">
-                    <div className="font-medium">{ed.school}</div>
-                    <div className="text-xs text-muted">{ed.date}</div>
-                  </div>
-                  <div className="text-xs opacity-90">{ed.degree}</div>
-                  <div className="text-xs font-semibold text-muted">{ed.notes}</div>
-                  <div className="text-xs text-muted">{ed.subject}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="card rounded-xl p-6 shadow-md">
-            <h3 className="text-lg font-semibold mb-3">Skills</h3>
-            <div className="flex flex-wrap gap-2">
-              {profile.skills.map((s, i) => (
-                <span key={i} className="text-xs px-3 py-1 rounded-full border">{s}</span>
-              ))}
-            </div>
-          </div>
-
-          <div className="card rounded-xl p-6 shadow-md">
-            <h3 className="text-lg font-semibold mb-3">Testimonials</h3>
-            {/* <p className="text-sm text-muted mb-3">Embedded video placeholders — replace with YouTube/Vimeo links.</p> */}
-
-            {/* Video placeholders: change src to your YouTube/Vimeo embed URLs */}
-            <div className="space-y-3">
-              <video controls className="w-full rounded-md">
-                <source src={testimonial1} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-
-              <video controls className="w-full rounded-md">
-                <source src={testimonial2} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          </div>
-
-        </aside>
-      </main>
-
-      <footer className="max-w-5xl mx-auto px-6 pb-10 text-sm text-center text-muted">
-        {/* <div className="mb-3">Built with ♥ — replace avatar and content as needed. Theme variables are at the top of the file.</div> */}
-        {/* <div className="flex items-center justify-center gap-4">
-          <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-          <span className="opacity-50">·</span>
-          <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
-        </div> */}
-      </footer>
+          </section>
+        </div>
+      </div>
     </div>
   );
 }
