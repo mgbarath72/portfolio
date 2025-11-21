@@ -186,14 +186,14 @@ const toolkit = [
 
 const testimonialsData = [
   {
-    title: "Lab walkthrough — XR communication pipeline",
-    detail: "Demonstrates a haptic-integrated VR workflow validated with pilot trainees.",
-    media: testimonial1,
-  },
-  {
     title: "Surgical guidance twin",
     detail: "Clinician feedback on an Apple Vision Pro prototype for intraoperative awareness.",
     media: testimonial2,
+  },
+  {
+    title: "Lab walkthrough — XR communication pipeline",
+    detail: "Demonstrates a haptic-integrated VR workflow validated with pilot trainees.",
+    media: testimonial1,
   },
 ];
 
