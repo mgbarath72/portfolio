@@ -3,6 +3,7 @@ import React from "react";
 import avatar from "./images/profilephoto1.jpg";
 import testimonial1 from "./images/video1.mp4";
 import testimonial2 from "./images/video2.mp4";
+import testimonial3 from "./images/IndustryXR_Demo.mp4";
 
 const ThemeStyle = () => (
   <style>{`
@@ -75,17 +76,23 @@ const profile = {
   title: "Spatial computing researcher",
   location: "Boston, MA",
   email: "barath.balamurugan@outlook.com",
-  phone: "+1 857-398-8279",
+  // phone: "+1 857-398-8279",
   linkedin: "https://www.linkedin.com/in/barath-balamurugan",
   github: "https://github.com/Barath-Balamurugan",
   highlights: [
+    "Realtime robotics + sensing",
     "Collaborative VR + Apple Vision Pro",
     "XR guidance for clinicians",
-    "Realtime robotics + sensing",
   ],
 };
 
 const focusAreas = [
+  {
+    title: "Human-robot collaboration",
+    description:
+      "Immersive review rooms that reveal telemetry, uncertainty, and task plans in volumetric canvases.",
+    points: ["Collaborative VR", "Realtime data", "User studies"],
+  },
   {
     title: "Spatial computing interfaces",
     description:
@@ -97,12 +104,6 @@ const focusAreas = [
     description:
       "Digital twins syncing probes, haptics, and overlays so operating teams rehearse workflows with confidence.",
     points: ["Sensor fusion", "XR training", "Ops rehearsal"],
-  },
-  {
-    title: "Human-robot collaboration",
-    description:
-      "Immersive review rooms that reveal telemetry, uncertainty, and task plans in volumetric canvases.",
-    points: ["Collaborative VR", "Realtime data", "User studies"],
   },
 ];
 
@@ -195,6 +196,11 @@ const testimonialsData = [
     detail: "Clinician feedback on an Apple Vision Pro prototype for intraoperative awareness.",
     media: testimonial1,
   },
+  {
+    title: "Remote Human-Robot Collaboration in XR",
+    detail: "An operator uses a VR app to control a robot via a virtual controller while viewing its real-time joint status and camera feed.",
+    media: testimonial3,
+  },
 ];
 
 function Chip({ children, href }) {
@@ -248,7 +254,7 @@ const heroBullets = [
   "Collaborative VR rituals for robotics design reviews",
 ];
 
-const focusSignals = ["Apple Vision Pro", "Robotics", "Human Factors"];
+const focusSignals = ["Robotics", "Embedded Systems","XR Headsets", "Human Factors"];
 
 export default function BarathPortfolio() {
 
@@ -260,7 +266,7 @@ export default function BarathPortfolio() {
         <div className="gradient-lens gradient-lens--two" />
         <div className="noise-layer" />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 py-12 space-y-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 space-y-16">
           <section className="relative w-full overflow-hidden rounded-[32px] border border-white/10 bg-white/5 px-6 py-10 shadow-2xl sm:px-10">
               <div className="pointer-events-none absolute inset-0">
                 <div className="absolute -top-40 left-1/2 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-amber-400/20 blur-3xl" />
@@ -269,7 +275,7 @@ export default function BarathPortfolio() {
 
               <div className="relative">
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs font-medium tracking-[0.5em] text-zinc-300 ring-1 ring-white/10">
-                  RESEARCHER • XR · ROBOTICS
+                  RESEARCHER • ROBOTICS · XR · HUMAN-CENTERED DESIGN
                 </div>
 
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
@@ -280,7 +286,7 @@ export default function BarathPortfolio() {
                         <img
                           src={avatar}
                           alt="Barath Balamurugan"
-                          className="relative h-28 w-28 rounded-2xl object-cover ring-1 ring-white/10"
+                          className="relative h-40 w-40 rounded-2xl object-cover ring-1 ring-white/10"
                         />
                       </div>
 
@@ -288,24 +294,24 @@ export default function BarathPortfolio() {
                         <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
                           {profile.name}
                         </h1>
-                        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-zinc-300">
-                          I build immersive systems that make robotics intent tangible. From Apple Vision Pro prototypes to realtime sensor
+                        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-zinc-200">
+                          I build immersive systems that make robotics intent tangible. From XR prototypes to realtime sensor
                           pipelines, every experience translates complex autonomy into human-readable guidance.
                         </p>
 
-                        <div className="mt-5 flex flex-wrap gap-3">
+                        <div className="mt-8 flex flex-wrap gap-3">
                           <Chip href={`mailto:${profile.email}`}>{profile.email}</Chip>
                           <Chip>{profile.location}</Chip>
                           <Chip>{profile.phone}</Chip>
                         </div>
 
-                        <div className="mt-6 flex flex-wrap gap-2">
+                        <div className="mt-8 flex flex-wrap gap-2">
                           {profile.highlights.map((item) => (
                             <Tag key={item}>{item}</Tag>
                           ))}
                         </div>
 
-                        <div className="mt-8 flex flex-wrap gap-3">
+                        <div className="mt-10 flex flex-wrap gap-3">
                           <CTA href={profile.linkedin}>Start a project</CTA>
                           <CTA variant="ghost" href={profile.github}>
                             View experiments
@@ -365,7 +371,7 @@ export default function BarathPortfolio() {
           <section className="space-y-6">
             <div>
               <div className="section-label mb-3">Focus areas</div>
-              <h2 className="text-3xl font-semibold">Where I invest cycles</h2>
+              <h2 className="text-3xl font-semibold">Where I invest</h2>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
               {focusAreas.map((area, idx) => (
@@ -460,20 +466,32 @@ export default function BarathPortfolio() {
             </div>
           </section>
 
-          <section className="grid gap-6 lg:grid-cols-2">
-            {testimonialsData.map((testimonial) => (
-              <div key={testimonial.title} className="glass-card rounded-3xl overflow-hidden">
-                <video controls className="w-full h-56 object-cover">
-                  <source src={testimonial.media} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <div className="p-6 space-y-2">
-                  <p className="text-sm text-amber-200">Field note</p>
-                  <h3 className="text-xl font-semibold text-white">{testimonial.title}</h3>
-                  <p className="text-sm text-slate-300">{testimonial.detail}</p>
+          <section className="space-y-6">
+            <div>
+              <div className="section-label mb-3">Demo</div>
+              <h2 className="text-3xl font-semibold">Demo</h2>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {testimonialsData.map((testimonial) => (
+                <div key={testimonial.title} className="glass-card rounded-3xl overflow-hidden">
+                  <div className="w-full aspect-video">
+                    <video controls className="w-full h-full object-cover">
+                      <source src={testimonial.media} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                  <div className="px-6 py-4 space-y-2">
+                    <div className="flex items-center justify-between gap-4">
+                      <p className="text-sm text-amber-200">Field note</p>
+                      {testimonial.project && <span className="tag-pill text-xs">{testimonial.project}</span>}
+                    </div>
+                    <h3 className="text-xl font-semibold text-white">{testimonial.title}</h3>
+                    <p className="text-sm text-slate-300">{testimonial.detail}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </section>
 
           <section className="glass-card rounded-3xl p-10 text-center space-y-6">
