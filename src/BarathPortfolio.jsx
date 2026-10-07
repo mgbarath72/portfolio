@@ -87,19 +87,19 @@ const focusAreas = [
   {
     title: "Human-robot collaboration",
     description:
-      "Immersive review rooms that reveal telemetry, uncertainty, and task plans in volumetric canvases.",
+      "Ways for people to understand robot status, intent, and uncertainty while working with a system.",
     points: ["Collaborative VR", "Realtime data", "User studies"],
   },
   {
     title: "Spatial computing interfaces",
     description:
-      "Rapid visionOS prototyping that lets teams reason about robot intent, shared context, and tactile feedback.",
+      "Spatial interfaces for Apple Vision Pro and VR, built around real tasks and clear feedback.",
     points: ["Apple Vision Pro", "RealityKit", "SwiftUI"],
   },
   {
     title: "Surgical guidance twins",
     description:
-      "Digital twins syncing probes, haptics, and overlays so operating teams rehearse workflows with confidence.",
+      "Sensor-driven digital twins and XR guidance tools for surgical training and intraoperative use.",
     points: ["Sensor fusion", "XR training", "Ops rehearsal"],
   },
 ];
@@ -115,14 +115,14 @@ const projects = [
   {
     name: "AR-Surgery digital twin",
     summary:
-      "Live overlays, annotations, and haptic nudges for intraoperative teams using Apple Vision Pro as a co-pilot.",
+      "An Apple Vision Pro app that aligns 3D models with anatomy and displays live data from a sensorized probe.",
     signals: ["Apple Vision Pro", "RealityKit", "SwiftUI"],
     date: "2025",
   },
   {
     name: "Task Colab volumetric board",
     summary:
-      "Remote scientists co-create task plans inside a shared volumetric workspace with spatialized audio callouts.",
+      "A shared spatial workspace for reviewing robot tasks, live data, and 3D content with remote collaborators.",
     signals: ["Apple Vision Pro", "Unity", "Sensor fusion"],
     date: "2025",
   },
@@ -141,7 +141,7 @@ const projects = [
   {
     name: "Haptic XR training lane",
     summary:
-      "Multi-sensory VR training program with tactile probes and analytics to shorten clinician onboarding.",
+      "A VR training workflow that combines tactile probes, live sensor data, and performance feedback.",
     signals: ["ROS2", "OpenCV", "Haptics"],
     date: "2024",
   },
@@ -149,21 +149,21 @@ const projects = [
 
 const labPlaybooks = [
   {
-    title: "Immersive training loops",
+    title: "Build, test, repeat",
     body:
-      "Instrumented VR drills that combine tactile probes with volumetric telemetry so residents feel procedures before day zero.",
+      "I prototype quickly, test with users early, and use feedback to improve the next version.",
     tags: ["Haptics", "Pilot studies", "Adaptive scoring"],
   },
   {
-    title: "Realtime insight pipelines",
+    title: "Make the data understandable",
     body:
-      "Data services that ingest sensor streams, clean them on-edge, and surface only the critical signals in XR canvases.",
+      "I keep sensor and communication pipelines observable so latency, timing, and failures are easier to diagnose.",
     tags: ["Latency &lt; 40 ms", "Edge compute", "Reliability"],
   },
   {
-    title: "Collaborative review rooms",
+    title: "Design for the operator",
     body:
-      "Spatial meeting rooms where robotics teams inspect intent, uncertainty, and what-if scenarios side by side.",
+      "I design around the person using the system, especially when the robot or interface needs to explain what it is doing.",
     tags: ["Shared context", "Storyboards", "Vision Pro"],
   },
 ];
@@ -296,17 +296,17 @@ export default function BarathPortfolio() {
         <section className="hero">
           <div className="hero-copy">
             <p className="eyebrow">Robotics · XR · Human-centered systems</p>
-            <h1>I build interfaces that make complex machines easier to understand.</h1>
-            <p className="hero-intro">I’m {profile.name}, a robotics researcher and engineer in {profile.location}. My work connects real-time sensing, spatial computing, and thoughtful interaction design.</p>
+            <h1>I build robotics and XR systems that are practical, clear, and easy to use.</h1>
+            <p className="hero-intro">I’m {profile.name}, a robotics researcher and engineer based in {profile.location}. I work on robot teleoperation, real-time sensor pipelines, and XR tools for training and guidance.</p>
             <div className="hero-actions">
-              <ArrowLink href={`mailto:${profile.email}`}>Start a conversation</ArrowLink>
+              <ArrowLink href={`mailto:${profile.email}`}>Email me</ArrowLink>
               <ArrowLink href="/Barath_Balamurugan_Resume.pdf" download>Resume</ArrowLink>
               <ArrowLink href={profile.github}>GitHub</ArrowLink>
             </div>
           </div>
           <div className="portrait-wrap">
             <img src={avatar} alt="Barath Balamurugan" />
-            <p>Available for research collaborations and select engineering work.</p>
+            <p>Currently working across robotics, XR, and human-robot interaction.</p>
           </div>
         </section>
 
@@ -315,7 +315,7 @@ export default function BarathPortfolio() {
         </section>
 
         <section id="experience" className="content-section">
-          <SectionHeading eyebrow="Experience" title="Lab rigor, production constraints." intro="I work across research and industry, from robot recovery systems to multisensory training tools." />
+          <SectionHeading eyebrow="Experience" title="What I’ve been working on." intro="My experience covers robotics R&D, academic research, and hardware validation." />
           <div className="timeline">
             {experience.map((item) => (
               <article className="timeline-item" key={item.organization}>
@@ -334,7 +334,7 @@ export default function BarathPortfolio() {
         </section>
 
         <section className="content-section">
-          <SectionHeading eyebrow="Focus" title="Where I spend my attention." />
+          <SectionHeading eyebrow="Focus" title="The problems I like working on." />
           <div className="focus-list">
             {focusAreas.map((area, index) => (
               <article key={area.title}>
@@ -347,7 +347,7 @@ export default function BarathPortfolio() {
         </section>
 
         <section id="projects" className="content-section">
-          <SectionHeading eyebrow="Selected work" title="Systems built to be used." intro="Prototypes and platforms that join perception, control, and human judgment." />
+          <SectionHeading eyebrow="Selected work" title="A few projects I’m proud of." intro="These projects bring together robotics, perception, spatial computing, and real-time data." />
           <div className="project-list">
             {projects.map((project, index) => (
               <article className="project-row" key={project.name}>
@@ -360,7 +360,7 @@ export default function BarathPortfolio() {
         </section>
 
         <section id="publications" className="content-section">
-          <SectionHeading eyebrow="Publications" title="Research made public." />
+          <SectionHeading eyebrow="Publications" title="Published research." />
           <div className="publication-list-simple">
             {publications.map((paper, index) => (
               <article key={paper.title}>
@@ -384,15 +384,15 @@ export default function BarathPortfolio() {
         </section>
 
         <section className="content-section notes-section">
-          <SectionHeading eyebrow="Approach" title="How I work with teams." />
+          <SectionHeading eyebrow="Approach" title="How I like to build." />
           <div className="notes-grid">
             {labPlaybooks.map((item) => <article key={item.title}><h3>{item.title}</h3><p>{item.body}</p></article>)}
           </div>
         </section>
 
         <section className="closing">
-          <p className="eyebrow">Let’s work together</p>
-          <h2>Building something at the edge of robotics and human experience?</h2>
+          <p className="eyebrow">Get in touch</p>
+          <h2>Working on a robotics or XR problem? I’d like to hear about it.</h2>
           <ArrowLink href={`mailto:${profile.email}`}>{profile.email}</ArrowLink>
         </section>
       </main>
