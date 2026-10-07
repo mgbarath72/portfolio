@@ -257,351 +257,147 @@ const publications = [
   },
 ];
 
-function Chip({ children, href }) {
-  const Component = href ? "a" : "div";
+
+function ArrowLink({ href, children, download = false }) {
+  const external = href.startsWith("http");
   return (
-    <Component
-      href={href}
-      className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 text-sm text-zinc-300 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white"
-    >
-      <span className="h-2 w-2 rounded-full bg-amber-300" aria-hidden />
-      {children}
-    </Component>
+    <a className="text-link" href={href} download={download || undefined} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>
+      {children}<span aria-hidden="true">↗</span>
+    </a>
   );
 }
 
-function Tag({ children }) {
+function SectionHeading({ eyebrow, title, intro }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-amber-400/10 px-3 py-1 text-xs font-medium text-amber-300 ring-1 ring-amber-400/20">
-      {children}
-    </span>
+    <header className="section-heading">
+      <p className="eyebrow">{eyebrow}</p>
+      <div className="section-title-row">
+        <h2>{title}</h2>
+        {intro && <p>{intro}</p>}
+      </div>
+    </header>
   );
 }
-
-function HeroCard({ title, children }) {
-  return (
-    <div className="relative overflow-hidden rounded-3xl bg-zinc-900/60 p-6 shadow-2xl ring-1 ring-white/10 backdrop-blur-md">
-      {title && <div className="mb-4 text-sm uppercase tracking-[0.4em] text-zinc-400">{title}</div>}
-      {children}
-    </div>
-  );
-}
-
-function CTA({ children, variant = "primary", href }) {
-  const base =
-    "inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-0";
-  const cls =
-    variant === "primary"
-      ? `${base} bg-amber-400 text-zinc-900 hover:bg-amber-300`
-      : `${base} bg-white/5 text-zinc-200 hover:bg-white/10`;
-  const Component = href ? "a" : "button";
-  return (
-    <Component href={href} className={cls} target={href ? "_blank" : undefined} rel={href ? "noreferrer" : undefined}>
-      {children}
-    </Component>
-  );
-}
-
-const heroBullets = [
-  "XR training stack validated with surgical residents",
-  "Realtime ingest → volumetric overlays service",
-  "Collaborative VR rituals for robotics design reviews",
-];
-
-const focusSignals = ["Robotics", "Embedded Systems","XR Headsets", "Human Factors"];
 
 export default function BarathPortfolio() {
-
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-amber-200 selection:text-slate-900">
-      <ThemeStyle />
-      <div className="relative isolate overflow-hidden pb-20">
-        <div className="gradient-lens gradient-lens--one" />
-        <div className="gradient-lens gradient-lens--two" />
-        <div className="noise-layer" />
-
-        <nav className="site-nav relative z-10 max-w-7xl mx-auto px-6 pt-7" aria-label="Main navigation">
-          <a className="nav-brand" href="#top">BB<span>.</span></a>
-          <div className="nav-links"><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#publications">Publications</a></div>
-          <a className="nav-contact" href={`mailto:${profile.email}`}>Get in touch <span>↗</span></a>
+    <div className="site-shell" id="top">
+      <header className="topbar">
+        <a className="wordmark" href="#top">Barath B.</a>
+        <nav aria-label="Main navigation">
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#publications">Writing</a>
         </nav>
-        <div id="top" className="relative z-10 max-w-7xl mx-auto px-6 py-12 space-y-20">
-          <section className="relative w-full overflow-hidden rounded-[32px] border border-white/10 bg-white/5 px-6 py-10 shadow-2xl sm:px-10">
-              <div className="pointer-events-none absolute inset-0">
-                <div className="absolute -top-40 left-1/2 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-amber-400/20 blur-3xl" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
-              </div>
+        <a className="contact-link" href={`mailto:${profile.email}`}>Contact</a>
+      </header>
 
-              <div className="relative">
-                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs font-medium tracking-[0.5em] text-zinc-300 ring-1 ring-white/10">
-                  RESEARCHER • ROBOTICS · XR · HUMAN-CENTERED DESIGN
-                </div>
-
-                <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
-                  <div className="lg:col-span-7 xl:col-span-8">
-                    <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
-                      <div className="relative mx-auto sm:mx-0">
-                        <div className="absolute -inset-1 rounded-2xl bg-amber-400/20 blur-md" />
-                        <img
-                          src={avatar}
-                          alt="Barath Balamurugan"
-                          className="relative h-40 w-40 rounded-2xl object-cover ring-1 ring-white/10"
-                        />
-                      </div>
-
-                      <div className="flex-1">
-                        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-                          {profile.name}
-                        </h1>
-                        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-zinc-200">
-                          I build immersive systems that make robotics intent tangible. From XR prototypes to realtime sensor
-                          pipelines, every experience translates complex autonomy into human-readable guidance.
-                        </p>
-
-                        <div className="mt-8 flex flex-wrap gap-3">
-                          <Chip href={`mailto:${profile.email}`}>{profile.email}</Chip>
-                          <Chip>{profile.location}</Chip>
-                          <Chip href={`tel:${profile.phone.replace(/[^+\d]/g, "")}`}>{profile.phone}</Chip>
-                        </div>
-
-                        <div className="mt-8 flex flex-wrap gap-2">
-                          {profile.highlights.map((item) => (
-                            <Tag key={item}>{item}</Tag>
-                          ))}
-                        </div>
-
-                        <div className="mt-10 flex flex-wrap gap-3">
-                          <CTA href={profile.linkedin}>Start a project</CTA>
-                          <CTA variant="ghost" href={profile.github}>
-                            View experiments
-                          </CTA>
-                          <CTA variant="ghost" href="/Barath_Balamurugan_Resume.pdf">Resume ↗</CTA>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-6 lg:col-span-5 xl:col-span-4">
-                    <HeroCard title={<span className="flex items-center gap-2 text-zinc-300">Signal</span>}>
-                      <ul className="space-y-3 text-sm leading-relaxed text-zinc-300">
-                        {heroBullets.map((bullet) => (
-                          <li key={bullet} className="flex items-start gap-3">
-                            <span className="mt-1 inline-flex h-2.5 w-2.5 flex-none rounded-full bg-amber-400/90" />
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </HeroCard>
-
-                    <HeroCard title={<span className="flex items-center gap-2 text-zinc-300">Focus</span>}>
-                      <div className="flex flex-wrap gap-2">
-                        {focusSignals.map((label) => (
-                          <span
-                            key={label}
-                            className="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-2 text-sm text-zinc-200 ring-1 ring-white/10"
-                          >
-                            <span className="h-1.5 w-1.5 rounded-full bg-amber-200" aria-hidden />
-                            {label}
-                          </span>
-                        ))}
-                      </div>
-                    </HeroCard>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-          <section id="experience" className="space-y-8">
-            <div className="section-label">The work</div>
-            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-              <h2 className="text-3xl font-semibold">Experience across lab and industry</h2>
-              <p className="max-w-xl text-sm text-slate-400">From robot recovery on production hardware to spatial interfaces and faster validation workflows.</p>
+      <main>
+        <section className="hero">
+          <div className="hero-copy">
+            <p className="eyebrow">Robotics · XR · Human-centered systems</p>
+            <h1>I build interfaces that make complex machines easier to understand.</h1>
+            <p className="hero-intro">I’m {profile.name}, a robotics researcher and engineer in {profile.location}. My work connects real-time sensing, spatial computing, and thoughtful interaction design.</p>
+            <div className="hero-actions">
+              <ArrowLink href={`mailto:${profile.email}`}>Start a conversation</ArrowLink>
+              <ArrowLink href="/Barath_Balamurugan_Resume.pdf" download>Resume</ArrowLink>
+              <ArrowLink href={profile.github}>GitHub</ArrowLink>
             </div>
-            <div className="experience-grid">
-              {experience.map((item) => (
-                <article key={item.organization} className="experience-card">
-                  <div className="experience-period">{item.period}</div>
+          </div>
+          <div className="portrait-wrap">
+            <img src={avatar} alt="Barath Balamurugan" />
+            <p>Available for research collaborations and select engineering work.</p>
+          </div>
+        </section>
+
+        <section className="numbers" aria-label="Selected outcomes">
+          {stats.map((stat) => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
+        </section>
+
+        <section id="experience" className="content-section">
+          <SectionHeading eyebrow="Experience" title="Lab rigor, production constraints." intro="I work across research and industry, from robot recovery systems to multisensory training tools." />
+          <div className="timeline">
+            {experience.map((item) => (
+              <article className="timeline-item" key={item.organization}>
+                <p className="timeline-date">{item.period}</p>
+                <div>
                   <h3>{item.role}</h3>
-                  <div className="experience-org">{item.organization}</div>
-                  <p>{item.detail}</p>
-                  <div className="flex flex-wrap gap-2">{item.tags.map((tag) => <span key={tag} className="tag-pill">{tag}</span>)}</div>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section className="space-y-8">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div>
-                <div className="section-label mb-3">Telemetry</div>
-                <h2 className="text-3xl font-semibold">Proof points from the lab</h2>
-              </div>
-            </div>
-            <div className="grid gap-6 md:grid-cols-4">
-              {stats.map((stat) => (
-                <div key={stat.label} className="glass-card rounded-2xl p-5 text-center">
-                  <div className="text-3xl font-semibold text-amber-300">{stat.value}</div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mt-2">{stat.label}</p>
+                  <p className="organization">{item.organization}</p>
                 </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="space-y-6">
-            <div>
-              <div className="section-label mb-3">Focus areas</div>
-              <h2 className="text-3xl font-semibold">Where I invest</h2>
-            </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {focusAreas.map((area, idx) => (
-                <div key={area.title} className="glass-card rounded-2xl p-6 space-y-4">
-                  <p className="text-sm text-slate-400">Track 0{idx + 1}</p>
-                  <h3 className="text-xl font-semibold text-white">{area.title}</h3>
-                  <p className="text-sm text-slate-300">{area.description}</p>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {area.points.map((point) => (
-                      <span key={point} className="tag-pill text-xs">
-                        {point}
-                      </span>
-                    ))}
-                  </div>
+                <div>
+                  <p className="body-copy">{item.detail}</p>
+                  <p className="meta-line">{item.tags.join(" · ")}</p>
                 </div>
-              ))}
-            </div>
-          </section>
+              </article>
+            ))}
+          </div>
+        </section>
 
-          <section id="projects" className="space-y-6">
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div>
-                <div className="section-label mb-3">Case studies</div>
-                <h2 className="text-3xl font-semibold">Systems that turn insight into action</h2>
-              </div>
-              <p className="text-sm text-slate-400 max-w-xl">
-                Each build is engineered as a living lab: measurable telemetry, field feedback loops, and a clear path to deployment beyond demos.
-              </p>
-            </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {projects.map((project) => (
-                <article key={project.name} className="glass-card rounded-2xl p-6 space-y-4">
-                  <div className="text-sm text-slate-400">{project.date}</div>
-                  <h3 className="text-xl font-semibold text-white">{project.name}</h3>
-                  <p className="text-sm text-slate-300">{project.summary}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.signals.map((signal) => (
-                      <span key={signal} className="tag-pill text-xs">
-                        {signal}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
+        <section className="content-section">
+          <SectionHeading eyebrow="Focus" title="Where I spend my attention." />
+          <div className="focus-list">
+            {focusAreas.map((area, index) => (
+              <article key={area.title}>
+                <span>0{index + 1}</span>
+                <h3>{area.title}</h3>
+                <p>{area.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-          <section className="space-y-6">
-            <div className="section-label mb-3">Playbooks</div>
-            <h2 className="text-3xl font-semibold">How I partner with teams</h2>
-            <div className="grid gap-6 md:grid-cols-3">
-              {labPlaybooks.map((playbook) => (
-                <div key={playbook.title} className="glass-card rounded-2xl p-6 space-y-3">
-                  <h3 className="text-xl font-semibold text-white">{playbook.title}</h3>
-                  <p className="text-sm text-slate-300">{playbook.body}</p>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {playbook.tags.map((tag) => (
-                      <span key={tag} className="tag-pill text-xs">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
+        <section id="projects" className="content-section">
+          <SectionHeading eyebrow="Selected work" title="Systems built to be used." intro="Prototypes and platforms that join perception, control, and human judgment." />
+          <div className="project-list">
+            {projects.map((project, index) => (
+              <article className="project-row" key={project.name}>
+                <span className="project-index">0{index + 1}</span>
+                <div><p className="project-date">{project.date}</p><h3>{project.name}</h3></div>
+                <div><p>{project.summary}</p><p className="meta-line">{project.signals.join(" · ")}</p></div>
+              </article>
+            ))}
+          </div>
+        </section>
 
-          <section id="publications" className="space-y-6">
-            <div className="section-label">Research output</div>
-            <h2 className="text-3xl font-semibold">Publications & recognition</h2>
-            <div className="publication-list">
-              {publications.map((paper, index) => (
-                <article className="publication-row" key={paper.title}>
-                  <span className="publication-number">0{index + 1}</span>
-                  <div>
-                    <h3>{paper.title}</h3>
-                    <p>{paper.venue}</p>
-                  </div>
-                  {paper.href && <a href={paper.href} target="_blank" rel="noreferrer" aria-label={`Read ${paper.title}`}>View paper ↗</a>}
-                </article>
-              ))}
-            </div>
-          </section>
+        <section id="publications" className="content-section">
+          <SectionHeading eyebrow="Publications" title="Research made public." />
+          <div className="publication-list-simple">
+            {publications.map((paper, index) => (
+              <article key={paper.title}>
+                <span>0{index + 1}</span>
+                <div><h3>{paper.title}</h3><p>{paper.venue}</p></div>
+                {paper.href ? <ArrowLink href={paper.href}>Read</ArrowLink> : <span className="muted">Forthcoming</span>}
+              </article>
+            ))}
+          </div>
+        </section>
 
-          <section className="grid gap-6 lg:grid-cols-2">
-            <div className="glass-card rounded-3xl p-8 space-y-5">
-              <div className="section-label">Credentials & labs</div>
-              {credentials.map((cred) => (
-                <div key={cred.title} className="border border-white/10 rounded-2xl p-5 bg-white/5">
-                  <h3 className="text-lg font-semibold text-white">{cred.title}</h3>
-                  <p className="text-sm text-slate-300 mt-1">{cred.subtitle}</p>
-                  <p className="text-xs text-slate-400 mt-1">{cred.detail}</p>
-                </div>
-              ))}
-            </div>
+        <section className="content-section split-section">
+          <div>
+            <p className="eyebrow">Education</p>
+            {credentials.map((cred) => <article className="credential" key={cred.title}><h3>{cred.title}</h3><p>{cred.subtitle}</p><span>{cred.detail}</span></article>)}
+          </div>
+          <div>
+            <p className="eyebrow">Toolkit</p>
+            <p className="toolkit-copy">{toolkit.join(" · ")}</p>
+          </div>
+        </section>
 
-            <div className="glass-card rounded-3xl p-8 space-y-5">
-              <div className="section-label">Toolkit</div>
-              <p className="text-sm text-slate-300">
-                Languages and engines I reach for to turn research hypotheses into production-ready prototypes.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {toolkit.map((skill) => (
-                  <span key={skill} className="tag-pill">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </section>
+        <section className="content-section notes-section">
+          <SectionHeading eyebrow="Approach" title="How I work with teams." />
+          <div className="notes-grid">
+            {labPlaybooks.map((item) => <article key={item.title}><h3>{item.title}</h3><p>{item.body}</p></article>)}
+          </div>
+        </section>
 
-          <section className="space-y-6">
-            <div>
-              <div className="section-label mb-3">Demo</div>
-              <h2 className="text-3xl font-semibold">Research demonstrations</h2>
-            </div>
+        <section className="closing">
+          <p className="eyebrow">Let’s work together</p>
+          <h2>Building something at the edge of robotics and human experience?</h2>
+          <ArrowLink href={`mailto:${profile.email}`}>{profile.email}</ArrowLink>
+        </section>
+      </main>
 
-            <div className="grid gap-6 md:grid-cols-2">
-              {testimonialsData.map((testimonial) => (
-                <div key={testimonial.title} className="glass-card rounded-3xl overflow-hidden">
-                  <div className="demo-visual" aria-hidden="true"><span>XR / 0{testimonialsData.indexOf(testimonial) + 1}</span></div>
-                  <div className="px-6 py-4 space-y-2">
-                    <div className="flex items-center justify-between gap-4">
-                      <p className="text-sm text-amber-200">Field note</p>
-                      {testimonial.project && <span className="tag-pill text-xs">{testimonial.project}</span>}
-                    </div>
-                    <h3 className="text-xl font-semibold text-white">{testimonial.title}</h3>
-                    <p className="text-sm text-slate-300">{testimonial.detail}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="glass-card rounded-3xl p-10 text-center space-y-6">
-            <div className="section-label">Collaborate</div>
-            <h2 className="text-3xl font-semibold">
-              Let’s build spatial experiences that make robotics more human and trustworthy.
-            </h2>
-            <p className="text-base text-slate-300 max-w-3xl mx-auto">
-              I’m exploring research collaborations, internships, and consulting work that mix robotics, XR, and human-centered design. Tell me about your challenge.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <CTA href={`mailto:${profile.email}`}>Start a conversation</CTA>
-              <CTA variant="ghost" href={profile.linkedin}>
-                Schedule a call
-              </CTA>
-            </div>
-          </section>
-        </div>
-      </div>
+      <footer><span>© {new Date().getFullYear()} Barath Balamurugan</span><div><a href={profile.linkedin}>LinkedIn</a><a href={profile.github}>GitHub</a></div></footer>
     </div>
   );
 }
