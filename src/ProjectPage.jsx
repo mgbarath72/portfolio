@@ -39,7 +39,7 @@ export default function ProjectPage() {
     <main>
       <section className="project-hero">
         <Link className="back-link" to="/projects"><span aria-hidden="true">←</span> All projects</Link>
-        <p className="eyebrow">Project 0{index + 1}</p>
+        <p className="eyebrow">{project.date}</p>
         <h1>{project.name}</h1>
         <p className="page-lede">{project.summary}</p>
         {project.links && (
@@ -63,7 +63,7 @@ export default function ProjectPage() {
       )}
 
       {project.highlights && (
-        <ProjectSection title="What I built">
+        <ProjectSection title={project.highlightsTitle ?? "What I built"}>
           <ul className="project-points">
             {project.highlights.map((point) => <li key={point}>{point}</li>)}
           </ul>
