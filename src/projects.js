@@ -20,8 +20,21 @@ export const projects = [
       "Built the VR application in Unity with C# to simulate and teleoperate the manipulator.",
       "Connected Unity to the robot over ROS 2 topics with the ROS TCP Connector for real-time data exchange.",
       "Ran edge AI on a Raspberry Pi to process camera streams over ROS 2, detecting features in real time and feeding structured results back to the operator.",
+      "Turned those detections into VR: per-frame positions of detected objects are sent to the headset, which spawns matching virtual objects in the digital twin.",
     ],
     results: [{ value: "Best Demo", label: "ACM HotMobile ’25" }],
+    cover: {
+      src: "/images/projects/xr-teleoperation/cover.jpg",
+      alt: "The virtual robot arm on its mobile base inside the VR workspace",
+    },
+    media: [
+      {
+        type: "video",
+        src: "/images/projects/xr-teleoperation/demo.mp4",
+        poster: "/images/projects/xr-teleoperation/cover.jpg",
+        caption: "The demo: an XR digital twin of the robot, real-time detection of objects around it, the virtual controller, and live telemetry from the real robot.",
+      },
+    ],
     links: [
       { label: "Paper · ACM HotMobile ’25", href: "https://doi.org/10.1145/3708468.3715687" },
       { label: "Unity project", href: "https://github.com/Barath-Balamurugan/industryxr-unity" },
@@ -87,6 +100,12 @@ export const projects = [
       alt: "Apple Vision Pro view of a virtual phantom model beside the tracked physical phantom",
     },
     media: [
+      {
+        type: "video",
+        src: "/images/projects/ar-surgery/workflow.mp4",
+        poster: "/images/projects/ar-surgery/workflow-poster.jpg",
+        caption: "The full workflow: the tracked phantom, the sensorized probe with a live depth readout, and the anatomy overlay.",
+      },
       {
         type: "video",
         src: "/images/projects/ar-surgery/phantom-tracking.mp4",
@@ -242,22 +261,40 @@ export const projects = [
         caption: "The virtual tube furnace the learner operates in VR.",
       },
       {
+        type: "video",
+        src: "/images/projects/nanowire-lab/parameters.mp4",
+        poster: "/images/projects/nanowire-lab/parameters-poster.jpg",
+        caption: "Setting the growth parameters on the in-VR panel.",
+      },
+      {
+        type: "video",
+        src: "/images/projects/nanowire-lab/sample-loading.mp4",
+        poster: "/images/projects/nanowire-lab/sample-loading-poster.jpg",
+        caption: "Pushing the sample into the furnace with the rod.",
+      },
+      {
+        type: "video",
+        src: "/images/projects/nanowire-lab/gas-flow.mp4",
+        poster: "/images/projects/nanowire-lab/gas-flow-poster.jpg",
+        caption: "Gas flowing through the furnace tube over the substrate.",
+      },
+      {
         type: "image",
         src: "/images/projects/nanowire-lab/sample-boat.jpg",
         alt: "A sample boat inside the furnace tube with nanowires forming on the sample",
         caption: "The sample boat inside the furnace tube.",
       },
       {
+        type: "video",
+        src: "/images/projects/nanowire-lab/growth.mp4",
+        poster: "/images/projects/nanowire-lab/growth-poster.jpg",
+        caption: "Nanowires nucleating and growing in the physics-based simulation.",
+      },
+      {
         type: "image",
         src: "/images/projects/nanowire-lab/hologram-view.jpg",
         alt: "Nanowires growing on a substrate, shown in the hologram pyramid",
         caption: "The same growth shown to the class on the hologram.",
-      },
-      {
-        type: "image",
-        src: "/images/projects/nanowire-lab/growth-model.jpg",
-        alt: "Simulated nanowires with gold caps spread across a blue substrate",
-        caption: "Nanowire nucleation and growth from the physics-based model.",
       },
     ],
   },
