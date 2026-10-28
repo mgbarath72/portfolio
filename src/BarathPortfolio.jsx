@@ -271,9 +271,8 @@ export default function BarathPortfolio() {
       <section id="projects" className="content-section">
         <SectionHeading eyebrow="Selected work" title="A few projects I’m proud of." intro="These projects bring together robotics, perception, spatial computing, and real-time data." />
         <div className="project-list">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <Link className="project-row" key={project.slug} to={`/projects/${project.slug}`}>
-              <span className="project-index">0{index + 1}</span>
               <div><p className="project-date">{project.date}</p><h3>{project.name}</h3></div>
               <div><p>{project.summary}</p><p className="meta-line">{project.tags.join(" · ")}</p></div>
             </Link>

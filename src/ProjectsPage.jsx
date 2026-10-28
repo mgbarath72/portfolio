@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import { usePageTitle } from "./Layout";
 import { projects } from "./projects";
 
-function ProjectCover({ project, index }) {
+function ProjectCover({ project }) {
   if (project.cover) return <img src={project.cover.src} alt="" loading="lazy" />;
+  const initials = project.name.split(" ").slice(0, 2).map((word) => word[0].toUpperCase()).join("");
   return (
     <div className="cover-placeholder" aria-hidden="true">
       <span>{project.tags[0]}</span>
-      <span>0{index + 1}</span>
+      <span>{initials}</span>
     </div>
   );
 }
@@ -20,14 +21,14 @@ export default function ProjectsPage() {
     <main>
       <section className="page-intro">
         <p className="eyebrow">Projects</p>
-        <h1>Things I’ve built across robotics, perception, and XR.</h1>
+        <h1>Things I’ve built across robotics, XR, holograms, and games.</h1>
         <p className="page-lede">Pick a project to see how it works, what I built, and the demos and code behind it.</p>
       </section>
 
       <section className="project-grid" aria-label="All projects">
-        {projects.map((project, index) => (
-          <Link key={project.slug} to={`/projects/${project.slug}`} className={index === 0 ? "project-card project-card--featured" : "project-card"}>
-            <div className="project-card-cover"><ProjectCover project={project} index={index} /></div>
+        {projects.map((project) => (
+          <Link key={project.slug} to={`/projects/${project.slug}`} className="project-card">
+            <div className="project-card-cover"><ProjectCover project={project} /></div>
             <div className="project-card-body">
               <p className="project-date">{project.date}</p>
               <h2>{project.name}</h2>
