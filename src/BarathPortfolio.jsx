@@ -1,6 +1,11 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import avatar from "./images/profilephoto1.jpg";
+import { ArrowLink, SectionHeading, usePageTitle } from "./Layout";
+import { profile } from "./profile";
+import { projects } from "./projects";
 
 const ThemeStyle = () => (
   <style>{`
@@ -68,21 +73,6 @@ const ThemeStyle = () => (
   `}</style>
 );
 
-const profile = {
-  name: "Barath Balamurugan",
-  title: "Spatial computing researcher",
-  location: "Boston, MA",
-  email: "barath.balamurugan@outlook.com",
-  phone: "+1 857-398-8279",
-  linkedin: "https://www.linkedin.com/in/barath-balamurugan",
-  github: "https://github.com/Barath-Balamurugan",
-  highlights: [
-    "Realtime robotics + sensing",
-    "Collaborative VR + Apple Vision Pro",
-    "XR guidance for clinicians",
-  ],
-};
-
 const focusAreas = [
   {
     title: "Human-robot collaboration",
@@ -109,42 +99,6 @@ const stats = [
   { value: "35%", label: "Validation time saved" },
   { value: "5+", label: "Custom utilities delivered" },
   { value: "3", label: "Publications" },
-];
-
-const projects = [
-  {
-    name: "AR-Surgery digital twin",
-    summary:
-      "An Apple Vision Pro app that aligns 3D models with anatomy and displays live data from a sensorized probe.",
-    signals: ["Apple Vision Pro", "RealityKit", "SwiftUI"],
-    date: "2025",
-  },
-  {
-    name: "Task Colab volumetric board",
-    summary:
-      "A shared spatial workspace for reviewing robot tasks, live data, and 3D content with remote collaborators.",
-    signals: ["Apple Vision Pro", "Unity", "Sensor fusion"],
-    date: "2025",
-  },
-  {
-    name: "Autonomous dice sorting",
-    summary: "A Jetson-based robot combines YOLO, depth sensing and MoveIt to detect and sort dice. A mixed synthetic and real dataset reached 91.3% accuracy after 100 training epochs.",
-    signals: ["ROS 2", "YOLO", "MoveIt", "Jetson"],
-    date: "2025",
-  },
-  {
-    name: "XR robot teleoperation & digital twin",
-    summary: "A Unity VR interface simulates and teleoperates a six-degree-of-freedom robot, with ROS 2 communication and edge camera processing on Raspberry Pi and Jetson.",
-    signals: ["Unity", "ROS 2", "C#", "Edge AI"],
-    date: "2024–25",
-  },
-  {
-    name: "Haptic XR training lane",
-    summary:
-      "A VR training workflow that combines tactile probes, live sensor data, and performance feedback.",
-    signals: ["ROS2", "OpenCV", "Haptics"],
-    date: "2024",
-  },
 ];
 
 const labPlaybooks = [
@@ -257,147 +211,115 @@ const publications = [
   },
 ];
 
-
-function ArrowLink({ href, children, download = false }) {
-  const external = href.startsWith("http");
-  return (
-    <a className="text-link" href={href} download={download || undefined} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>
-      {children}<span aria-hidden="true">↗</span>
-    </a>
-  );
-}
-
-function SectionHeading({ eyebrow, title, intro }) {
-  return (
-    <header className="section-heading">
-      <p className="eyebrow">{eyebrow}</p>
-      <div className="section-title-row">
-        <h2>{title}</h2>
-        {intro && <p>{intro}</p>}
-      </div>
-    </header>
-  );
-}
-
 export default function BarathPortfolio() {
+  usePageTitle();
   return (
-    <div className="site-shell" id="top">
-      <header className="topbar">
-        <a className="wordmark" href="#top">Barath B.</a>
-        <nav aria-label="Main navigation">
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#publications">Writing</a>
-        </nav>
-        <a className="contact-link" href={`mailto:${profile.email}`}>Contact</a>
-      </header>
-
-      <main>
-        <section className="hero">
-          <div className="hero-copy">
-            <p className="eyebrow">Robotics · XR · Human-centered systems</p>
-            <h1>I build robotics and XR systems that are practical, clear, and easy to use.</h1>
-            <p className="hero-intro">I’m {profile.name}, a robotics researcher and engineer based in {profile.location}. I work on robot teleoperation, real-time sensor pipelines, and XR tools for training and guidance.</p>
-            <div className="hero-actions">
-              <ArrowLink href={`mailto:${profile.email}`}>Email me</ArrowLink>
-              <ArrowLink href="/Barath_Balamurugan_Resume.pdf" download>Resume</ArrowLink>
-              <ArrowLink href={profile.github}>GitHub</ArrowLink>
-            </div>
+    <main>
+      <section className="hero">
+        <div className="hero-copy">
+          <p className="eyebrow">Robotics · XR · Human-centered systems</p>
+          <h1>I build robotics and XR systems that are practical, clear, and easy to use.</h1>
+          <p className="hero-intro">I’m {profile.name}, a robotics researcher and engineer based in {profile.location}. I work on robot teleoperation, real-time sensor pipelines, and XR tools for training and guidance.</p>
+          <div className="hero-actions">
+            <ArrowLink href={`mailto:${profile.email}`}>Email me</ArrowLink>
+            <ArrowLink href="/Barath_Balamurugan_Resume.pdf" download>Resume</ArrowLink>
+            <ArrowLink href={profile.github}>GitHub</ArrowLink>
           </div>
-          <div className="portrait-wrap">
-            <img src={avatar} alt="Barath Balamurugan" />
-            <p>Currently working across robotics, XR, and human-robot interaction.</p>
-          </div>
-        </section>
+        </div>
+        <div className="portrait-wrap">
+          <img src={avatar} alt="Barath Balamurugan" />
+          <p>Currently working across robotics, XR, and human-robot interaction.</p>
+        </div>
+      </section>
 
-        <section className="numbers" aria-label="Selected outcomes">
-          {stats.map((stat) => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
-        </section>
+      <section className="numbers" aria-label="Selected outcomes">
+        {stats.map((stat) => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
+      </section>
 
-        <section id="experience" className="content-section">
-          <SectionHeading eyebrow="Experience" title="What I’ve been working on." intro="My experience covers robotics R&D, academic research, and hardware validation." />
-          <div className="timeline">
-            {experience.map((item) => (
-              <article className="timeline-item" key={item.organization}>
-                <p className="timeline-date">{item.period}</p>
-                <div>
-                  <h3>{item.role}</h3>
-                  <p className="organization">{item.organization}</p>
-                </div>
-                <div>
-                  <p className="body-copy">{item.detail}</p>
-                  <p className="meta-line">{item.tags.join(" · ")}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
+      <section id="experience" className="content-section">
+        <SectionHeading eyebrow="Experience" title="What I’ve been working on." intro="My experience covers robotics R&D, academic research, and hardware validation." />
+        <div className="timeline">
+          {experience.map((item) => (
+            <article className="timeline-item" key={item.organization}>
+              <p className="timeline-date">{item.period}</p>
+              <div>
+                <h3>{item.role}</h3>
+                <p className="organization">{item.organization}</p>
+              </div>
+              <div>
+                <p className="body-copy">{item.detail}</p>
+                <p className="meta-line">{item.tags.join(" · ")}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
-        <section className="content-section">
-          <SectionHeading eyebrow="Focus" title="The problems I like working on." />
-          <div className="focus-list">
-            {focusAreas.map((area, index) => (
-              <article key={area.title}>
-                <span>0{index + 1}</span>
-                <h3>{area.title}</h3>
-                <p>{area.description}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+      <section className="content-section">
+        <SectionHeading eyebrow="Focus" title="The problems I like working on." />
+        <div className="focus-list">
+          {focusAreas.map((area, index) => (
+            <article key={area.title}>
+              <span>0{index + 1}</span>
+              <h3>{area.title}</h3>
+              <p>{area.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
-        <section id="projects" className="content-section">
-          <SectionHeading eyebrow="Selected work" title="A few projects I’m proud of." intro="These projects bring together robotics, perception, spatial computing, and real-time data." />
-          <div className="project-list">
-            {projects.map((project, index) => (
-              <article className="project-row" key={project.name}>
-                <span className="project-index">0{index + 1}</span>
-                <div><p className="project-date">{project.date}</p><h3>{project.name}</h3></div>
-                <div><p>{project.summary}</p><p className="meta-line">{project.signals.join(" · ")}</p></div>
-              </article>
-            ))}
-          </div>
-        </section>
+      <section id="projects" className="content-section">
+        <SectionHeading eyebrow="Selected work" title="A few projects I’m proud of." intro="These projects bring together robotics, perception, spatial computing, and real-time data." />
+        <div className="project-list">
+          {projects.map((project, index) => (
+            <Link className="project-row" key={project.slug} to={`/projects/${project.slug}`}>
+              <span className="project-index">0{index + 1}</span>
+              <div><p className="project-date">{project.date}</p><h3>{project.name}</h3></div>
+              <div><p>{project.summary}</p><p className="meta-line">{project.tags.join(" · ")}</p></div>
+            </Link>
+          ))}
+        </div>
+        <div className="section-footer">
+          <Link className="text-link" to="/projects">All projects <span aria-hidden="true">→</span></Link>
+        </div>
+      </section>
 
-        <section id="publications" className="content-section">
-          <SectionHeading eyebrow="Publications" title="Published research." />
-          <div className="publication-list-simple">
-            {publications.map((paper, index) => (
-              <article key={paper.title}>
-                <span>0{index + 1}</span>
-                <div><h3>{paper.title}</h3><p>{paper.venue}</p></div>
-                {paper.href ? <ArrowLink href={paper.href}>Read</ArrowLink> : <span className="muted">Forthcoming</span>}
-              </article>
-            ))}
-          </div>
-        </section>
+      <section id="publications" className="content-section">
+        <SectionHeading eyebrow="Publications" title="Published research." />
+        <div className="publication-list-simple">
+          {publications.map((paper, index) => (
+            <article key={paper.title}>
+              <span>0{index + 1}</span>
+              <div><h3>{paper.title}</h3><p>{paper.venue}</p></div>
+              {paper.href ? <ArrowLink href={paper.href}>Read</ArrowLink> : <span className="muted">Forthcoming</span>}
+            </article>
+          ))}
+        </div>
+      </section>
 
-        <section className="content-section split-section">
-          <div>
-            <p className="eyebrow">Education</p>
-            {credentials.map((cred) => <article className="credential" key={cred.title}><h3>{cred.title}</h3><p>{cred.subtitle}</p><span>{cred.detail}</span></article>)}
-          </div>
-          <div>
-            <p className="eyebrow">Toolkit</p>
-            <p className="toolkit-copy">{toolkit.join(" · ")}</p>
-          </div>
-        </section>
+      <section className="content-section split-section">
+        <div>
+          <p className="eyebrow">Education</p>
+          {credentials.map((cred) => <article className="credential" key={cred.title}><h3>{cred.title}</h3><p>{cred.subtitle}</p><span>{cred.detail}</span></article>)}
+        </div>
+        <div>
+          <p className="eyebrow">Toolkit</p>
+          <p className="toolkit-copy">{toolkit.join(" · ")}</p>
+        </div>
+      </section>
 
-        <section className="content-section notes-section">
-          <SectionHeading eyebrow="Approach" title="How I like to build." />
-          <div className="notes-grid">
-            {labPlaybooks.map((item) => <article key={item.title}><h3>{item.title}</h3><p>{item.body}</p></article>)}
-          </div>
-        </section>
+      <section className="content-section notes-section">
+        <SectionHeading eyebrow="Approach" title="How I like to build." />
+        <div className="notes-grid">
+          {labPlaybooks.map((item) => <article key={item.title}><h3>{item.title}</h3><p>{item.body}</p></article>)}
+        </div>
+      </section>
 
-        <section className="closing">
-          <p className="eyebrow">Get in touch</p>
-          <h2>Working on a robotics or XR problem? I’d like to hear about it.</h2>
-          <ArrowLink href={`mailto:${profile.email}`}>{profile.email}</ArrowLink>
-        </section>
-      </main>
-
-      <footer><span>© {new Date().getFullYear()} Barath Balamurugan</span><div><a href={profile.linkedin}>LinkedIn</a><a href={profile.github}>GitHub</a></div></footer>
-    </div>
+      <section className="closing">
+        <p className="eyebrow">Get in touch</p>
+        <h2>Working on a robotics or XR problem? I’d like to hear about it.</h2>
+        <ArrowLink href={`mailto:${profile.email}`}>{profile.email}</ArrowLink>
+      </section>
+    </main>
   );
 }
